@@ -1,0 +1,5 @@
+- I3
+- arandr + xrandr
+- redshift
+- dmenu
+- i3lock
