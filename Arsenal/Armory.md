@@ -1,0 +1,7 @@
+- winpeas
+- linpeas
+- https://github.com/peass-ng/PEASS-ng/blob/master/winPEAS/winPEASps1/winPEAS.ps1
+- mimikatz
+- rubeus?
+- powerup?
+- 
