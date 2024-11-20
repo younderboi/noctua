@@ -40,41 +40,10 @@ sudo systemctl enable postgresql
 git clone https://github.com/danielmiessler/SecLists /usr/share/seclists
 ```
 
-### `hashcat`
-
-```
-apt install hashcat
-```
-### `nmap`
-
-```sh
-sudo apt install nmap
-```
-
-### `gobuster`
-
-go grab the binary off the git
 
 ### `impacket`
 
 install into /opt
-
-### `responder`
-
-install from source into `/opt`
-
-```bash
-sudo git clone https://github.com/SpiderLabs/Responder.git /opt/Responder
-pip3 install netifaces --break-systempakacges # live fast, die young
-ln -s /opt/Responder/Responder.py /usr/local/bin/responder
-```
-
-
-### `ldapsearch`
-
-```sh
-sudo apt install ldap-utils -y
-```
 
 ### `kerbrute`
 

@@ -13,6 +13,14 @@ mkdir -p ~/.config
 
 ---
 
+## Misc (search) tools
+
+```bash
+sudo apt install jq ripgrep fzf locate
+```
+
+---
+
 ## **`direnv`**  
 
 Shell extension to manage environment variables effortlessly.
@@ -68,9 +76,11 @@ sudo apt install tmux
 
 # Install configuration
 git clone https://github.com/younderboi/tmux.git ~/.config/tmux
+
+# Symlink the config (hacky)
+# ln -s ~/.config/tmux/
 ```
 
-_TODO: Finalize and pull custom configuration._
 
 ---
 

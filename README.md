@@ -8,6 +8,8 @@
 > preying silently on unsuspecting lizards and other small creatures,  
 > embodying patience, precision, and deadly efficiency."**
 
+---
+
 **Noctua** is my tailored pentesting distribution, crafted to be absolutely minimal and cater to my specific needs. Built on Debian 12, it serves as a super-solid base with only the most important tools I personally love and rely on. Noctua isn’t flashy or bloated—just sharp, efficient, and reliable (and is free from glowing kali mirrors :)) ).
 
 
@@ -20,7 +22,11 @@
 
 ---
 
+**Disclaimer**: This setup prioritizes functionality for lab use and OSCP preparation. Proper OPSEC (e.g., non-root privileges, firewall rules) will be addressed in future updates.
+
+---
 ### **Design Considerations**
+
 - **Minimalist by Design**: No unnecessary tools or extras—just a lean setup to maximize stability and reduce the attack surface. \
 
 - **Headless First**: Optimized for headless operation, with an optional i3 desktop environment for lightweight GUI needs. 

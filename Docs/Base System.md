@@ -52,6 +52,7 @@ Drop you terminal machines `id_ecdsa` public into the `authorized_keys` file for
 
 ---
 ## Networking
+
 - **TCPDump**: For network traffic analysis.
 - **VPN Support**: OpenVPN and WireGuard for secure connections.
 - **Firewall**: Use UFW for basic firewall configuration.

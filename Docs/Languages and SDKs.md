@@ -26,7 +26,15 @@ go version
 
 I hate this fucking language
 
+```bash
+sudo apt install -y python3 python3-venv python3-pip pipx
+
+sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
-sudo apt install -y python3 python3-venv python3-pip
-apt install pytho3 pytho3-pip pipenv pipx
+
+## Ruby and Gem
+
+
+```bash
+sudo apt install ruby-full
 ```
