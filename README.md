@@ -12,12 +12,11 @@
 
 **Noctua** is my tailored pentesting distribution, crafted to be absolutely minimal and cater to my specific needs. Built on Debian 12, it serves as a super-solid base with only the most important tools I personally love and rely on. Noctua isn’t flashy or bloated—just sharp, efficient, and reliable (and is free from glowing kali mirrors :)) ).
 
-
 ---
 1. [[Base System]]
 2. [[Languages and SDKs]]
 3. [[Dev Toolkit]]
-4. [[Arsenal]]
+4. [[Arsenal/README]]
 5. [[Desktop Environment - Optional]]
 
 ---

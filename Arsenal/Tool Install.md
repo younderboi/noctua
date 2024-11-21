@@ -45,28 +45,3 @@ git clone https://github.com/danielmiessler/SecLists /usr/share/seclists
 
 install into /opt
 
-### `kerbrute`
-
- install from source, dump into /opt
-
-```bash
-wget -P /tmp https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_linux_amd64
-
-sudo mv /tmp/kerbrute_linux_amd64 /usr/bin/kerbrute
-
-sudo chmod +x /usr/bin/kerbrute
-```
-
-### `evil-winrm`
-
-https://github.com/Hackplayers/evil-winrm
-
-```sh
-apt gem install ruby ruby-dev build-essential
-gem install evil-winrm
-```
-
-## Bloodhound
-Cluster fuck (large application with multiple moving pieces).
-
-## Sliver C2

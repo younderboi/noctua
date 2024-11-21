@@ -70,6 +70,9 @@ sudo apt install -y openvpn wireguard
 
 # Firewall
 sudo apt install -y ufw
+
+# Basic networking tools
+sudo apt install -y socat netcawt-openbsd
 ```
 
 ### Firewall Configuration
