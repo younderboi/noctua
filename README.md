@@ -1,6 +1,6 @@
 
-![noctua](https://raw.githubusercontent.com/younderboi/noctua/refs/heads/main/Docs/assets/noctua_final.webp)
 
+![noctua_image](https://raw.githubusercontent.com/younderboi/noctua/refs/heads/main/assets/noctua_final.webp)
 
 ---
 

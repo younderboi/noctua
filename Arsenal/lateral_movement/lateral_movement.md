@@ -1,3 +1,14 @@
+## `netexec`
+
+https://www.netexec.wiki/getting-started/installation/installation-on-unix
+
+```bash
+pipx ensurepath
+
+pipx install git+https://github.com/Pennyw0rth/NetExec
+```
+
+#todo: install from source
 ## `impacket`
 
 ```bash
@@ -36,50 +47,38 @@ chmod +x /usr/bin/kerbrute
 ```
 
 
-## Bloodhound
-
-https://github.com/SpecterOps/BloodHound
+### Creating a systemd service
 
 ```bash
-
-git clone https://github.com/SpecterOps/BloodHound.git ~/arsenal/sources/BloodHound 
-
-cd ~/arsenal/sources/BloodHound/examples/docker-compose/
-
-docker compose pull
+sudo vi /etc/systemd/system/bloodhound.service
 ```
 
-#todo note default password
+```ini
+[Unit]
+Description=BloodHound Service
+After=network.target docker.service
+Requires=docker.service
 
+[Service]
+ExecStart=/usr/bin/docker compose -f /home/eknovitz/arsenal/sources/BloodHound/examples/docker-compose/docker-compose.yml up -d
+ExecStop=/usr/bin/docker compose -f /home/eknovitz/arsenal/sources/BloodHound/examples/docker-compose/docker-compose.yml down
+Restart=always
+User=eknovitz
+Group=eknovitz
+WorkingDirectory=/home/eknovitz/arsenal/sources/BloodHound/examples/docker-compose
+
+[Install]
+WantedBy=multi-user.target
 ```
-iuYzvSBMze1zsbL3uL94OSx_4LOYR2py
-```
 
- Update docker-compose.yml for automation 
- 
-```bash
-sed -i 's/localhost/0.0.0.0/' docker-compose.yml 
-
-sed -i '/volumes:/a\ - ./bloodhound.config.json:/bloodhound.config.json:ro' docker-compose.yml
-```
-
-Generate a little startup script
-```bash
-RUN_SCRIPT=~/arsenal/lateral_movement/enum/bloodhound.sh
-
-touch $RUN_SCRIPT
-
-echo "#\!/bin/zsh" > $RUN_SCRIPT 
-
-echo "docker compose -f ~/arsenal/sources/BloodHound/examples/docker-compose/docker-compose.yaml up" >> $RUN_SCRIPT
-
-```
+#todo: consider adding a service user?
+#todo: unhardcode username
 ### `evil-winrm`
 
 https://github.com/Hackplayers/evil-winrm
 
 ```zsh
-sudo apt gem install ruby ruby-dev build-essential
+sudo apt gem install ruby ruby-dev build-essential -y
 gem install evil-winrm
 ```
 # TODO

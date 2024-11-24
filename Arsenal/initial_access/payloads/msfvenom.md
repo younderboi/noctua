@@ -1,18 +1,3 @@
-## Tools
-- nxc
-- responder
-- nmap
-- gobuster
-- sliver
-- EvilWinRM
-- Impacket
-- bloodhound/sharphound
-- hashcat (works like shit on a VM)
-- searchsploit
-- exiftool
-- 
-
-
 ### msfvenom
 
 can't seem to find a means of installing msfvenom without metasploit 
@@ -32,16 +17,4 @@ sudo ./msfinstall
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 ```
-
-
-## Seclists
-
-```sh
-git clone https://github.com/danielmiessler/SecLists /usr/share/seclists
-```
-
-
-### `impacket`
-
-install into /opt
 

@@ -1,4 +1,0 @@
-- mimikatz
-- rubeus
-- powerup
-- 
