@@ -2,7 +2,7 @@
 **Install pre-reqs**
 
 ```sh
-apt-get install build-essential mingw-w64 binutils-mingw-w64 g++-mingw-w64
+sudo apt-get install build-essential mingw-w64 binutils-mingw-w64 g++-mingw-w64
 ```
 
 
@@ -23,34 +23,21 @@ LATEST_VERSION=$(curl -s https://api.github.com/repos/BishopFox/sliver/releases/
     | jq -r '.tag_name')
 
 # Install sliver-server binary
-sudo wget -O /usr/local/bin/sliver-server \
+sudo wget -O ~/arsenal/c2/sliver-server \
   https://github.com/BishopFox/sliver/releases/download/${LATEST_VERSION}/sliver-server_linux
   
-sudo chmod +x /usr/local/bin/sliver-server
+sudo chmod +x ~/arsenal/c2/sliver-server
 
 # Install sliver-client binary
-sudo wget -O /usr/local/bin/sliver-client \
+sudo wget -O ~/arsenal/c2/sliver-client \
   https://github.com/BishopFox/sliver/releases/download/${LATEST_VERSION}/sliver-client_linux
   
-sudo chmod +x /usr/local/bin/sliver-client
-
-```
-
-```sh
-# Installing sliver-server binary
-sudo wget -O /usr/local/bin/sliver-server \
-  https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-server_linux
-
-sudo chmod +x /usr/local/bin/sliver-server
-
-# Installing sliver operator client binary
-sudo wget -O /usr/local/bin/sliver-client \
-  https://github.com/BishopFox/Sliver/releases/download/v1.5.42/sliver-client_linux
-
-sudo chmod +x /usr/local/bin/sliver-client
+sudo chmod +x ~/arsenal/c2/sliver-client
 ```
 
 ## Systemd service
+
+#todo
 
 Dump the following into `/etc/systemd/system/sliver.service`
 

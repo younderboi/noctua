@@ -9,9 +9,11 @@ https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS
 git clone https://github.com/peass-ng/PEASS-ng.git ~/arsenal/sources/PEASS-ng  
 ```
 
-**Create build/symlinks etc**
 
-#todo
+```sh
+cp ~/arsenal/sources/PEASS-ng/winPEAS/winPEASps1/winPEAS.ps1 ~/arsenal/privesc/enum/winpeas.ps1
+```
+
 
 ## `pspy`
 

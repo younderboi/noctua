@@ -1,0 +1,29 @@
+- hydra
+- sqlite3
+- seahorse
+- keepass
+- wireguard-tools
+- sudo apt install proxychains4
+- nxc binaries: https://github.com/Pennyw0rth/NetExec/releases/tag/v1.3.0 (can be dropped directly onto target <3)
+- add spraynslay to git repo
+- gobuster binaries
+- sshpass (automation of ssh backdoors)
+- nmap binary
+- nmap github git clone https://github.com/nmap/nmap.git
+- somehow integrate nmap output with chatgpt api
+- skel template generators
+- socks5 testing script (curl with verbose or debug info + netstat -tuln)
+- tar and untar aliases
+- reduce sudo cooldown=
+- tmux terminal logger
+- reduce peass-ng noise
+- nxc + bloodhound integration
+- exiftool (recon + code injection)
+- printspoofer binaries https://github.com/itm4n/PrintSpoofer/releases
+- incorporate pyinstaller https://chatgpt.com/g/g-p-67600fd52e608191af44fc40898e7eb2-dante/c/6760802f-7f48-800a-9e6f-575ea76b0f12
+- fireshot?
+- smbclient
+- automate lfi discovery
+	- consider fimap (have a look at the golang one I was making for DANTE-NIX02)
+- https://github.com/quentinhardy/msdat
+- integrate sliver sessions with system notifications
