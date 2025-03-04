@@ -1,0 +1,52 @@
+- name: Ensure Uncomplicated Firewall is Enabled
+  systemd:
+    name: ufw
+    enabled: yes
+    state: started
+
+- name: Enable UFW & Set Default Rules
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Allow SSH (port 22)
+  ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+
+- name: Allow TCP port 80
+  ufw:
+    rule: allow
+    port: "80"
+    proto: tcp
+
+- name: Allow TCP port 8080
+  ufw:
+    rule: allow
+    port: "8080"
+    proto: tcp
+
+- name: Allow TCP port 8888
+  ufw:
+    rule: allow
+    port: "8080"
+    proto: tcp
+
+- name: Allow UDP port 53
+  ufw:
+    rule: allow
+    port: "53"
+    proto: tcp
+
+- name: Allow TCP port 4444
+  ufw:
+    rule: allow
+    port: "4444"
+    proto: tcp
+
+- name: Allow TCP port 4000
+  ufw:
+    rule: allow
+    port: "4000"
+    proto: tcp

@@ -1,0 +1,75 @@
+# === Python Install ===
+# todo: python2.7
+- name: Install Python 3 and Python 2.7
+  apt:
+    name:
+      - python3
+      - python3-pip
+      - pip
+      #      - python2.7
+      #- python-is-python3
+    state: present
+
+# === Ruby and gem ===
+- name: Install Ruby and gem
+  apt:
+    name:
+      - ruby-full
+
+- name: Install Bundler and Update Gems
+  shell: |
+    gem install bundler
+  args:
+    executable: /bin/bash
+
+## === Go custom install ===
+
+- name: Display Go Signature Verification Warning
+  debug:
+    msg: |
+      [SECURITY WARNING] 
+      The Go tarball is being downloaded from go.dev.
+      Ensure its integrity by verifying the SHA256 checksum:
+
+      sha256sum /tmp/go1.23.3.linux-amd64.tar.gz
+
+      Expected: a0afb9744c00648bafb1b90b4aba5bdb86f424f02f9275399ce0c20b93a2c3a8
+
+- name: Download Golang v1.23.3
+  get_url:
+    url: "https://go.dev/dl/go1.23.3.linux-amd64.tar.gz"
+    dest: "/tmp/go1.23.3.linux-amd64.tar.gz"
+    mode: "0644"
+
+- name: Extract Golang to /usr/local
+  unarchive:
+    src: "/tmp/go1.23.3.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+    creates: "/usr/local/go/bin/go"
+
+- name: Set Golang Environment Variables
+  copy:
+    dest: "/etc/profile.d/golang.sh"
+    content: |
+      export PATH=$PATH:/usr/local/go/bin
+      export GOPATH=$HOME/go
+      export GOBIN=$GOPATH/bin
+      export PATH=$PATH:$GOBIN
+    mode: "0644"
+
+- name: Reload Environment Variables
+  shell: source /etc/profile.d/golang.sh
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Verify Go Installation
+  command: go version
+  register: go_version
+  changed_when: false
+
+- name: Debug Go Version
+  debug:
+    msg: "{{ go_version.stdout }}"

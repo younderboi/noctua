@@ -1,0 +1,3 @@
+- import_playbook: ./base_system/system.yml
+- import_playbook: ./dev/dev
+- import_playbook: ./arsenal/arsenal.yml

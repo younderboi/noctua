@@ -1,0 +1,53 @@
+# === Installing neovim + lazyvim from source ===
+- name: Install dependencies for Neovim
+  apt:
+    name:
+      - ninja-build
+      - gettext
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+      - git
+    state: present
+    update_cache: yes
+
+- name: Clone Neovim source repository
+  git:
+    repo: "https://github.com/neovim/neovim.git"
+    dest: "/opt/neovim"
+    clone: yes
+    update: yes
+    version: v.0.10.4
+
+- name: Build Neovim from source
+  command: make CMAKE_BUILD_TYPE=Release
+  args:
+    chdir: "/opt/neovim"
+
+- name: Install Neovim
+  command: make install
+  args:
+    chdir: "/opt/neovim"
+  become: yes
+
+- name: Verify Neovim installation
+  command: nvim --version
+  register: neovim_version
+
+- name: Display Neovim version
+  debug:
+    msg: "{{ neovim_version.stdout }}"
+
+- name: Install custom lazy neovim
+  git:
+    repo: https://github.com/younderboi/nvim.git
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    clone: yes
+    update: no
+    force: no

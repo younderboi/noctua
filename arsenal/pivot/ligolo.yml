@@ -1,0 +1,49 @@
+- name: Ligolo-ng and agents
+  hosts: boxknox
+  tasks:
+    - name: Ensure directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "/arsenal/bin"
+        - "/arsenal/pivot"
+
+    - name: Download Ligolo-ng proxy
+      get_url:
+        url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_proxy_0.7.5_linux_amd64.tar.gz"
+        dest: "/arsenal/bin/ligolo.tar.gz"
+        mode: "0755"
+
+    - name: Extract Ligolo-ng proxy
+      ansible.builtin.unarchive:
+        src: "/arsenal/bin/ligolo.tar.gz"
+        dest: "/arsenal/bin/"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+
+    - name: Download Ligolo-ng Linux amd64 agent
+      get_url:
+        url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_agent_0.7.5_linux_amd64.tar.gz"
+        dest: "/arsenal/pivot/ligolo-agent-lin-amd64.tar.gz"
+        mode: "0755"
+
+    - name: Extract Ligolo-ng Windows agent
+      ansible.builtin.unarchive:
+        src: "/arsenal/pivot/ligolo-agent-lin-amd64.tar.gz"
+        dest: "/arsenal/pivot/"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+
+    - name: Download Ligolo-ng Windows amd64 agent
+      get_url:
+        url: "https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_agent_0.7.5_windows_amd64.zip"
+        dest: "/arsenal/bin/ligolo-agent-win-amd64.zip"
+        mode: "0755"
+
+    - name: Extract Ligolo-ng Windows agent
+      ansible.builtin.unarchive:
+        src: "/arsenal/bin/ligolo-agent-win-amd64.zip"
+        dest: "/arsenal/bin/"
+        remote_src: yes

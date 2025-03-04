@@ -1,0 +1,11 @@
+- name: Install Dev Tools
+  apt:
+    name:
+      - git
+      - fzf
+      - jq
+      - ripgrep
+      - locate
+      - direnv
+    state: present
+# todo: upate locateDB

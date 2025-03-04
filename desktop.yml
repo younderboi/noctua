@@ -1,0 +1,28 @@
+- name: Install clipboard stuff
+  apt:
+    name:
+      - xclip
+      - xsel
+
+- name: Install xauth for X11 forwarding
+  apt:
+    name: xauth
+    state: present
+    update_cache: yes
+
+- name: Ensure .Xauthority file exists for root
+  file:
+    path: /root/.Xauthority
+    state: touch
+    mode: "0600"
+
+- name: Set XAUTHORITY environment variable for root
+  lineinfile:
+    path: /root/.bashrc
+    line: "export XAUTHORITY=/root/.Xauthority"
+    create: yes
+
+- name: Restart SSH service to apply changes
+  systemd:
+    name: ssh
+    state: restarted

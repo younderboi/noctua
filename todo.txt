@@ -1,0 +1,17 @@
+- netexec
+- bloodhound
+- evilwinrm
+- john the ripper
+- golang (proper version)
+- peassng suite
+- ligolo-ng
+- gobuster
+- firefox
+  - foxyproxy
+  - wappalyzer
+- thc hydra
+- snmpcheck
+- pull neovim config
+- pull tmux config
+- pull zsh config
+

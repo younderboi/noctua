@@ -1,0 +1,10 @@
+- name: Setup the Base System
+  hosts: boxknox
+  become: yes
+  tasks:
+    - name: update and upgrade system
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - import_tasks: sleep.yml

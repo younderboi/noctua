@@ -1,0 +1,7 @@
+- name: install core utils
+  apt:
+    name:
+      - sqlite3
+      - mycli
+      - mydumper
+    state: present

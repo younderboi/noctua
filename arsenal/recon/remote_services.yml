@@ -1,0 +1,25 @@
+# Network scanning
+- name: Install Network Scanning tools
+  apt:
+
+# SMPT
+- name: Install SMPT tools
+  apt:
+    name:
+      - swaks
+    state: present
+
+# SMB
+- name: SMB Tools
+  apt:
+    name:
+      - enum4linux
+      - smbclient
+    state: present
+
+# LDAP
+- name: Install ldap-utils (for ldapsearch)
+  apt:
+    name: ldap-utils
+    state: present
+    update_cache: yes

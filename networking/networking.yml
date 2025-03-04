@@ -1,0 +1,19 @@
+- name: Networking Setup
+  hosts: boxknox
+  become: yes
+  tasks:
+    - name: Install Networking Toolz
+      apt:
+        name:
+          - wireguard
+          - openvpn
+          - network-manager
+          - ufw
+
+    - name: Ensure NetworkManager is Enabled
+      systemd:
+        name: NetworkManager
+        enabled: yes
+        state: started
+
+    - import_tasks: firewall.yml
