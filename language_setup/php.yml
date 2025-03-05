@@ -1,0 +1,5 @@
+- name: Setup and Install PHP
+  apt:
+    name:
+      - php
+    state: present

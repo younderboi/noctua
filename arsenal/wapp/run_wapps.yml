@@ -1,0 +1,5 @@
+- name: Run Wapp Setup
+  hosts: boxknox
+  tasks:
+    - name: Import wapp.yml
+      import_tasks: ./wapp.yml

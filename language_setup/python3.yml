@@ -1,0 +1,10 @@
+# === Python3 Install ===
+- name: Install Python 3 and Python 2.7
+  apt:
+    name:
+      - python3
+      - python3-pip
+      - pip
+      - pipx
+      - python-is-python3
+    state: present

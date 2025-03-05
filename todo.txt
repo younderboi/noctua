@@ -1,17 +1,14 @@
-- netexec
 - bloodhound
-- evilwinrm
-- john the ripper
-- golang (proper version)
-- peassng suite
 - ligolo-ng
-- gobuster
 - firefox
   - foxyproxy
   - wappalyzer
-- thc hydra
 - snmpcheck
-- pull neovim config
-- pull tmux config
-- pull zsh config
-
+- printspoofer binaries and potatoes
+- kerbrute - https://github.com/ropnop/kerbrute
+- rubeus - https://github.com/GhostPack/Rubeus
+- mimikatz
+- RunasCS (put my binary up somewhere's for download)
+- ditto for Potatoes...
+- start integrating evil-winnie into the mix <3
+- seclists

@@ -1,0 +1,5 @@
+- name: Run Initial Access Tool Setup
+  hosts: boxknox
+  become: yes
+  tasks:
+    - import_tasks: ./initial_access.yml

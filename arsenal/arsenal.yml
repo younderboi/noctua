@@ -1,52 +1,30 @@
 - name: Arsenal Setup
   hosts: boxknox
   tasks:
-    # === Create directory scaffolding ===
-    - name: Ensure /arsenal Directory Exists
-      file:
-        path: "/arsenal"
-        state: directory
-        mode: "0755"
+    - name: Create Directory Scaffolding
+      import_tasks: create_scaffolding.yml
 
-    - name: Ensure /arsenal/sources Directory Exists
-      file:
-        path: "/arsenal/sources"
-        state: directory
-        mode: "0755"
+    - name: Cracking Tools
+      import_tasks: ./cracking/cracking.yml
 
-    - name: Ensure /arsenal/bin Directory Exists
-      file:
-        path: "/arsenal/bin"
-        state: directory
-        mode: "0755"
+    - name: AD tooling
+      import_tasks: ./active_directory/active_directory.yml
 
-    - name: Add /arsenal/bin to PATH
-      copy:
-        dest: "/etc/profile.d/arsenal.sh"
-        content: |
-          export PATH=$PATH:/arsenal/bin
-        mode: "0644"
+    - name: WAPP
+      import_tasks: ./wapp/wapp.yml
 
-    - name: Make pivot dir
-      file:
-        path: "/arsenal/pivot"
-        state: directory
-        mode: "0755"
+    - name: Recon
+      import_tasks: ./recon/recon.yml
 
-    - name: Make privesc dir
-      file:
-        path: "/arsenal/privesc"
-        state: directory
-        mode: "0755"
+    - name: Import C2
+      import_tasks: ./c2/c2.yml
 
-    - name: Make privesc linux dir
-      file:
-        path: "/arsenal/privesc/lin"
-        state: directory
-        mode: "0755"
+    - name: Import databases
+      import_tasks: databases.yml
 
-    - name: Make privesc win dir
-      file:
-        path: "/arsenal/privesc/win"
-        state: directory
-        mode: "0755"
+    - name: Import Initial Access
+      import_tasks: ./initial_access/initial_access.yml
+
+    # === Tool dumpster ===
+    - name: Tool dumpster
+      import_tasks: tool_dumpster.yml

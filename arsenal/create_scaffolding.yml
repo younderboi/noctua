@@ -1,0 +1,49 @@
+# === Create directory scaffolding ===
+- name: Ensure /arsenal Directory Exists
+  file:
+    path: "/arsenal"
+    state: directory
+    mode: "0755"
+
+- name: Ensure /arsenal/sources Directory Exists
+  file:
+    path: "/arsenal/sources"
+    state: directory
+    mode: "0755"
+
+- name: Ensure /arsenal/bin Directory Exists
+  file:
+    path: "/arsenal/bin"
+    state: directory
+    mode: "0755"
+
+- name: Add /arsenal/bin to PATH
+  copy:
+    dest: "/etc/profile.d/arsenal.sh"
+    content: |
+      export PATH=$PATH:/arsenal/bin
+    mode: "0644"
+
+- name: Make pivot dir
+  file:
+    path: "/arsenal/pivot"
+    state: directory
+    mode: "0755"
+
+- name: Make privesc dir
+  file:
+    path: "/arsenal/privesc"
+    state: directory
+    mode: "0755"
+
+- name: Make privesc linux dir
+  file:
+    path: "/arsenal/privesc/lin"
+    state: directory
+    mode: "0755"
+
+- name: Make privesc win dir
+  file:
+    path: "/arsenal/privesc/win"
+    state: directory
+    mode: "0755"

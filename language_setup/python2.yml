@@ -1,0 +1,66 @@
+- name: Warning Read Before Proceeding
+  debug:
+    msg:
+      - "⚠️ Important Considerations"
+      - ""
+      - "FrankenDebian Warning: Installing packages from Debian 11 on a Debian 12 system can lead to a mixed environment, commonly referred to as 'FrankenDebian.' This setup may cause system instability."
+      - "It's recommended to remove these packages after use and before upgrading to future Debian releases."
+      - ""
+      - "Security Risks: Using outdated or unsupported software versions can expose your system to security vulnerabilities."
+      - "Ensure you understand the implications and consider using supported Python versions for production environments."
+      - ""
+
+- name: Ensure /tmp/python2.7-debs exists
+  file:
+    path: "/tmp/python2.7-debs"
+    state: directory
+
+- name: Download required Debian 11 packages
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/python2.7-debs/{{ item.filename }}"
+  with_items:
+    - {
+        url: "http://ftp.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb",
+        filename: "libffi7_3.3-6_amd64.deb",
+      }
+    - {
+        url: "http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.1w-0+deb11u2_amd64.deb",
+        filename: "libssl1.1_1.1.1w-0+deb11u2_amd64.deb",
+      }
+    - {
+        url: "http://ftp.debian.org/debian/pool/main/p/python2.7/libpython2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+        filename: "libpython2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+      }
+    - {
+        url: "http://ftp.debian.org/debian/pool/main/p/python2.7/python2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+        filename: "python2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+      }
+    - {
+        url: "http://ftp.debian.org/debian/pool/main/p/python2.7/libpython2.7-stdlib_2.7.18-8+deb11u1_amd64.deb",
+        filename: "libpython2.7-stdlib_2.7.18-8+deb11u1_amd64.deb",
+      }
+    - {
+        url: "http://ftp.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.18-8+deb11u1_amd64.deb",
+        filename: "python2.7_2.7.18-8+deb11u1_amd64.deb",
+      }
+
+- name: Install required Debian 11 packages
+  apt:
+    deb: "/tmp/python2.7-debs/{{ item }}"
+  with_items:
+    - "libffi7_3.3-6_amd64.deb"
+    - "libssl1.1_1.1.1w-0+deb11u2_amd64.deb"
+    - "libpython2.7-minimal_2.7.18-8+deb11u1_amd64.deb"
+    - "python2.7-minimal_2.7.18-8+deb11u1_amd64.deb"
+    - "libpython2.7-stdlib_2.7.18-8+deb11u1_amd64.deb"
+    - "python2.7_2.7.18-8+deb11u1_amd64.deb"
+
+- name: Verify Python 2.7 installation
+  command: python2.7 --version
+  register: python_version
+  changed_when: false
+
+- name: Display Python version
+  debug:
+    msg: "Python 2.7 installed successfully: {{ python_version.stdout }}"

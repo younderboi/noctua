@@ -1,0 +1,5 @@
+- name: Install Privesc tooling
+  hosts: boxknox
+  become: yes
+  tasks:
+    - import_tasks: ./privesc.yml

@@ -1,0 +1,42 @@
+# tasks/install_firefox.yml
+# TODO: add foxyproxy and wappalyzer
+- name: Install Firefox ESR
+  apt:
+    name: firefox-esr
+    state: present
+    update_cache: yes
+
+- name: Disable Firefox GPU Acceleration (Zsh Compatible)
+  lineinfile:
+    path: "/etc/zsh/zshenv"
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - "export MOZ_DISABLE_RDD_SANDBOX=1"
+    - "export MOZ_X11_EGL=0"
+    - "export MOZ_DISABLE_GPU_SANDBOX=1"
+    - "export LIBGL_ALWAYS_SOFTWARE=1"
+# - name: Create systemd service for Xpra + Firefox
+#   copy:
+#     dest: "/etc/systemd/system/xpra-firefox.service"
+#     content: |
+#       [Unit]
+#       Description=Start Xpra with Firefox
+#       After=network.target
+#
+#       [Service]
+#       User=root
+#       ExecStart=/usr/bin/xpra start :100 --start=firefox-esr --opengl=no --no-daemon
+#       Restart=always
+#       Environment="XAUTHORITY=/root/.Xauthority"
+#       Environment="DISPLAY=:100"
+#
+#       [Install]
+#       WantedBy=multi-user.target
+#     mode: "0644"
+#
+# - name: Enable and start Xpra-Firefox service
+#   systemd:
+#     name: xpra-firefox
+#     enabled: yes
+#     state: started

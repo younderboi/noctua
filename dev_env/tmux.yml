@@ -1,0 +1,8 @@
+# === Tmux ===
+- name: Clone tmux config repository
+  git:
+    repo: "https://github.com/younderboi/tmux.git"
+    dest: "{{ ansible_env.HOME }}/.config/tmux"
+    clone: yes
+    update: yes
+    force: yes

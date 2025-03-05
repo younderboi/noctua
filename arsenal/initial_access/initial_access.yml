@@ -1,0 +1,5 @@
+- name: Import Metasploit
+  import_tasks: ./metasploit.yml
+
+- name: Import exploitdb
+  import_tasks: ./exploitdb.yml

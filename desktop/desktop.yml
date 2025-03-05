@@ -1,0 +1,49 @@
+- name: Setup X11 Desktop, Forwarding and Xpra
+  hosts: boxknox
+  become: yes
+  tasks:
+    - name: Install x11 and friends
+      apt:
+        name:
+          - xauth
+          - x11-apps
+          - xpra
+          - xclip
+          - xsel
+        state: present
+        update_cache: yes
+
+    - name: Enable X11 Forwarding in SSH Config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+        backup: yes
+      with_items:
+        - { regexp: "^#?X11Forwarding", line: "X11Forwarding yes" }
+        - { regexp: "^#?X11UseLocalhost", line: "X11UseLocalhost no" }
+
+    # === Xauth setup ===
+    - name: Ensure .Xauthority file exists for root
+      file:
+        path: /root/.Xauthority
+        state: file
+        mode: "0600"
+        owner: root
+        group: root
+
+    - name: Set XAUTHORITY environment variable for root
+      lineinfile:
+        path: /root/.bashrc
+        line: "export XAUTHORITY=/root/.Xauthority"
+        create: yes
+
+    # === Xpra setup ===
+    - name: Import XPRA
+      import_tasks: ./xpra.yml
+
+    - name: Restart SSH service to apply changes
+      systemd:
+        name: ssh
+        state: restarted

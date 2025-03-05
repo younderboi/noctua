@@ -1,0 +1,15 @@
+# gobuster
+# wpscan
+# burpsuite
+- name: Install gobuster
+  apt:
+    name:
+      - gobuster
+    state: present
+
+# Firefox
+- name: Install firefox
+  import_tasks: ./firefox.yml
+
+- name: Install burpsuite
+  import_tasks: ./burpsuite.yml

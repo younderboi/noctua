@@ -1,0 +1,41 @@
+# Responder
+- name: Install Responder
+  git:
+    repo: "https://github.com/lgandx/Responder.git"
+    dest: /arsenal/sources/Responder
+    clone: yes
+    update: yes
+    force: yes
+
+# Go windapsearch
+- name: Download go-windapsearch
+  get_url:
+    url: "https://github.com/ropnop/go-windapsearch/releases/download/v0.3.0/windapsearch-linux-amd64"
+    dest: "/arsenal/bin/windapsearch"
+    mode: "0755"
+
+# WinRm
+- name: Install evil-winrm
+  shell: |
+    gem install evil-winrm
+  args:
+    creates: /usr/local/bin/evil-winrm
+
+# === Impacket ===
+- name: Install Impacket using pipx
+  command: pipx install git+https://github.com/fortra/impacket
+  args:
+    creates: "~/.local/bin/secretsdump.py"
+
+- name: Debug Installed Impacket Tools
+  shell: ls ~/.local/bin/
+  register: impacket_tools
+  changed_when: false
+
+- name: Show Installed Impacket Tools
+  debug:
+    msg: "{{ impacket_tools.stdout_lines }}"
+- name: Install impacket
+  command: pipx install impacket
+  args:
+    creates: "~/.local/bin/"

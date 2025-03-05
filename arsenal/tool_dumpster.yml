@@ -1,0 +1,5 @@
+- name: Install misc tooling
+  apt:
+    name:
+      - sshpass
+    state: present

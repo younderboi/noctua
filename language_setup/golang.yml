@@ -1,0 +1,61 @@
+## === Go custom install ===
+# TODO: This is slow as fuck
+
+- name: Check pre-existing Go install
+  command: go version
+  register: go_installed
+  changed_when: false
+  failed_when: false
+
+- name: Skip install if Go is already present
+  debug:
+
+- name: Display Go Signature Verification Warning
+  debug:
+    msg: |
+      [SECURITY WARNING] 
+      The Go tarball is being downloaded from go.dev.
+      Ensure its integrity by verifying the SHA256 checksum:
+
+      sha256sum /tmp/go1.23.3.linux-amd64.tar.gz
+
+      Expected: a0afb9744c00648bafb1b90b4aba5bdb86f424f02f9275399ce0c20b93a2c3a8
+
+- name: Download Golang v1.23.3
+  get_url:
+    url: "https://go.dev/dl/go1.23.3.linux-amd64.tar.gz"
+    dest: "/tmp/go1.23.3.linux-amd64.tar.gz"
+    mode: "0644"
+
+- name: Extract Golang to /usr/local
+  unarchive:
+    src: "/tmp/go1.23.3.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+    creates: "/usr/local/go/bin/go"
+
+- name: Set Golang Environment Variables
+  copy:
+    dest: "/etc/profile.d/golang.sh"
+    content: |
+      export PATH=$PATH:/usr/local/go/bin
+      export GOPATH=$HOME/go
+      export GOBIN=$GOPATH/bin
+      export PATH=$PATH:$GOBIN
+    mode: "0644"
+
+- name: Reload Environment Variables
+  shell: source /etc/profile.d/golang.sh
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Verify Go Installation
+  command: go version
+  register: go_version
+  changed_when: false
+
+- name: Debug Go Version
+  debug:
+    msg: "{{ go_version.stdout }}"
