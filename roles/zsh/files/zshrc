@@ -1,0 +1,61 @@
+
+#=== dir-env
+eval "$(direnv hook zsh)"
+
+#=== Aliases
+alias get_tun0_ip="ip -4 addr show tun0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+alias clip="xclip -selection clipboard"
+alias vi="nvim"
+alias c="clear"
+alias ll="ls -l"
+alias la="ls -A"
+alias l="ls -CF"
+alias zsreload="source ~/.zshrc"
+alias clear-hashcat="rm ~/.local/share/hashcat/hashcat.potfile"
+alias sliver="sliver-client"
+alias john=/arsenal/sources/john/run/john
+
+# === Haxor funcitons
+get-ip() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: get-ip <interface>"
+        return 1
+    fi
+    ip -4 addr show dev "$1" | grep -oP '(?<=inet\s)\d+(\.\d+){3}' || echo "No IP found on interface $1"
+}
+
+#=== PATH
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=$HOME/utils:$PATH
+export PATH=/arsenal/bin:$PATH
+export PATH=/arsenal/sources/john/run:$PATH
+
+#=== Prompt
+setopt prompt_subst
+
+PS1="╭─[λ]-[\$(hostname)]-[%~]-[\${RHOST}]
+╰─> "
+
+#=== Environment variables
+export EDITOR="nvim"
+export TMUX_CONF="~/.config/tmux/tmux.conf"
+export XDG_CONFIG_HOME=$HOME/.config
+
+#=== Plugins
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+#=== The following lines were added by compinstall
+zstyle ':completion:*' completer _complete _ignored
+zstyle :compinstall filename '~/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd
+bindkey -v
+# End of lines configured by zsh-newuser-install

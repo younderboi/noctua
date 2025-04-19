@@ -1,0 +1,94 @@
+# -----------------------------------------------------------------------------
+# Sliver C2 Installation Playbook for BoxKnox
+# This Ansible playbook automates the installation and setup of Sliver C2.
+# Inspired by: https://dominicbreuker.com/post/learning_sliver_c2_01_installation/
+# -----------------------------------------------------------------------------
+
+- name: Install Pre-Requisites
+  apt:
+    name:
+      - build-essential
+      - mingw-w64
+      - binutils-mingw-w64
+      - g++-mingw-w64
+    state: present
+
+- name: Get Latest Sliver Version
+  shell: |
+    curl -s https://api.github.com/repos/BishopFox/sliver/releases/latest | jq -r '.tag_name'
+  register: sliver_version
+  changed_when: false
+
+- name: Display Checksum Verification Warning
+  debug:
+    msg: |
+      [SECURITY WARNING] 
+      Sliver binaries are being downloaded dynamically from GitHub releases.
+      To ensure integrity, perform a manual checksum verification using:
+
+      sha256sum /arsenal/bin/sliver-server /arsenal/bin/sliver-client
+
+      Compare against the published checksums from:
+      https://github.com/BishopFox/sliver/releases
+
+- name: Ensure Sliver Directories Exist
+  file:
+    path: "/arsenal/bin"
+    state: directory
+    mode: "0755"
+
+- name: Download Sliver Server Binary
+  get_url:
+    url: "https://github.com/BishopFox/sliver/releases/download/{{ sliver_version.stdout }}/sliver-server_linux"
+    dest: "/arsenal/bin/sliver-server"
+    mode: "0755"
+
+- name: Download Sliver Client Binary
+  get_url:
+    url: "https://github.com/BishopFox/sliver/releases/download/{{ sliver_version.stdout }}/sliver-client_linux"
+    dest: "/arsenal/bin/sliver-client"
+    mode: "0755"
+
+- name: Unpack sliver
+  command: /arsenal/bin/sliver-server unpack --force
+  args:
+    creates: "~/.sliver/go"
+
+- name: Set Up Systemd Service for Sliver
+  copy:
+    dest: "/etc/systemd/system/sliver.service"
+    content: |
+      [Unit]
+      Description=Sliver
+      After=network.target
+      StartLimitIntervalSec=0
+
+      [Service]
+      Type=simple
+      Restart=on-failure
+      RestartSec=3
+      User=root
+      ExecStart=/arsenal/bin/sliver-server daemon
+
+      [Install]
+      WantedBy=multi-user.target
+    mode: "0600"
+
+- name: Reload Systemd Daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Enable and Start Sliver Service
+  systemd:
+    name: sliver
+    enabled: yes
+    state: started
+
+- name: Verify Sliver is listening on Port 31337
+  shell: "ss -antop | grep 31337"
+  register: sliver_status
+  changed_when: false
+
+- name: Debug Sliver Sliver Status
+  debug:
+    msg: "{{ sliver_status.stdout_lines }}"

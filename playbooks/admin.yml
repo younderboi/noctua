@@ -1,0 +1,6 @@
+- name: Setup admin system
+  hosts: admin
+  become: true
+  roles:
+    - { role: i3, tags: [desktop, UX, WM, GUI] }
+    - { role: signal, tags: [comms, GUI] }

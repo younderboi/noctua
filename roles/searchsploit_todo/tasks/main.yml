@@ -1,0 +1,28 @@
+---
+- name: Ensure /arsenal/sources directory exists
+  file:
+    path: "/arsenal/sources"
+    state: directory
+    mode: "0755"
+
+- name: Install exploitDB
+  git:
+    repo: "https://gitlab.com/exploit-database/exploitdb.git"
+    dest: "/arsenal/sources/exploitdb"
+    clone: yes
+    update: yes
+    version: 2024-11-26
+    force: yes
+
+- name: Ensure /arsenal/bin directory exists
+  file:
+    path: "/arsenal/bin"
+    state: directory
+    mode: "0755"
+
+- name: Create symlink for searchsploit
+  file:
+    src: "/arsenal/sources/exploitdb/searchsploit"
+    dest: "/arsenal/bin/searchsploit"
+    state: link
+    force: yes

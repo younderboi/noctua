@@ -1,0 +1,18 @@
+---
+# === Ensure that /arsenal/initial-access exist
+- name: Ensure that /arsenal/wapp exists
+  file:
+    path: "/arsenal/wapp/payloads"
+    state: directory
+    mode: "0755"
+
+- name: Copy all files from files/ to /arsenal/wapp/payloads
+  copy:
+    src: "{{ item }}"
+    dest: "/arsenal/wapp/payloads/"
+    mode: "0755"
+    force: yes
+  with_fileglob:
+    - "files/payloads/*"
+
+- import_tasks: burpsuite.yml

@@ -1,0 +1,8 @@
+- name: Copy entire LazyVim config
+  copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/"
+    owner: "{{ ansible_user | default('root') }}"
+    group: "{{ ansible_user | default('root') }}"
+    mode: "0644"
+  become: false

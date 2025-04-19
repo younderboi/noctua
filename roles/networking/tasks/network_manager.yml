@@ -1,0 +1,10 @@
+- name: Install NetworkManager
+  apt:
+    name: network-manager
+    state: present
+
+- name: Ensure NetworkManager is Enabled
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: started

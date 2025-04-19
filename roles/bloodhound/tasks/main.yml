@@ -1,0 +1,42 @@
+- name: Ensure BloodHound deployment directory exists
+  file:
+    path: /arsenal/sources/bloodhound
+    state: directory
+    mode: "0755"
+
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /arsenal/sources/bloodhound/docker-compose.yml
+    mode: "0644"
+
+- name: Copy bloodhound.config.json
+  copy:
+    src: bloodhound.config.json
+    dest: /arsenal/sources/bloodhound/bloodhound.config.json
+    mode: "0644"
+
+- name: Copy bloodhound.sh
+  copy:
+    src: bloodhound.sh
+    dest: /arsenal/bin/bloodhound.sh
+    mode: "0755"
+
+- name: Copy bloodhound_background.sh
+  copy:
+    src: bloodhound_background.sh
+    dest: /arsenal/bin/bloodhound_background.sh
+    mode: "0755"
+
+- name: Copy bloodhound systemd service
+  copy:
+    src: bloodhound.service
+    dest: /etc/systemd/system/bloodhound.service
+    mode: "0644"
+
+- name: enable bloodhound systemd service
+  systemd:
+    name: bloodhound.service
+    enabled: yes
+    state: started
+    daemon_reload: yes

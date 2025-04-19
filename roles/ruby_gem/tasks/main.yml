@@ -1,0 +1,12 @@
+---
+# === Ruby and gem ===
+- name: Install Ruby and gem
+  apt:
+    name:
+      - ruby-full
+
+- name: Install Bundler and Update Gems
+  shell: |
+    gem install bundler
+  args:
+    executable: /bin/bash

@@ -1,0 +1,28 @@
+- name: Setup noctua
+  hosts: noctua
+
+  roles:
+    # Core Environment
+    - { role: networking, tags: [core, networking] }
+    - { role: tmux, tags: [core, dev, shell] }
+    - { role: zsh, tags: [core, dev, shell] }
+    - { role: shell_utils, tags: [core, dev, shell] }
+    - { role: neovim, tags: [core, dev, shell, editor] }
+
+    # Language SDKs
+    - { role: golang, tags: [core, dev, SDK, go] }
+    - { role: python, tags: [dev, SDK, python] }
+    - { role: python2, tags: [deprecated, python, dev, SDK] }
+    - { role: php, tags: [dev, SDK, php] }
+    - { role: ruby_gem, tags: [dev, SDK, ruby] }
+
+    # Red Team Arsenal
+    - { role: remote-enum, tags: [AD, recon, remote-enum] }
+    - { role: bloodhound, tags: [AD, windows, red] }
+    - { role: netexec, tags: [remote-enum, recon, red, AD, python, arsenal] }
+    - { role: sliver, tags: [C2, red] }
+    - { role: privesc, tags: [red, privesc, bin, AD, arsenal] }
+    - { role: cracking, tags: [red, cracking, password, credentials, arsenal] }
+    - { role: AD_tools, tags: [red, AD, arsenal] }
+    - { role: pivot, tags: [red, arsenal, networking, VPN, pivot] }
+    - { role: metasploit, tags: [red, deprecate, metasploit, ruby] }

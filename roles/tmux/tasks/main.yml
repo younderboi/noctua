@@ -1,0 +1,12 @@
+- name: Install Tmux
+  apt:
+    name: tmux
+    state: present
+    update_cache: true
+
+- name: Copy tmux.conf
+  copy:
+    src: "tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.config/tmux/"
+    mode: "0755"
+    force: yes

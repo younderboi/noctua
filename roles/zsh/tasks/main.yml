@@ -1,0 +1,44 @@
+# === ZSH ===
+# TODO: make the .zshrc config thingy a static file inside this repo, easier to manage
+- name: Install Zsh
+  apt:
+    name: zsh
+    state: present
+    update_cache: yes
+
+- name: Copy ZSH config
+  copy:
+    src: "zshrc"
+    dest: "{{ ansible_env.HOME }}/.config/zsh"
+    mode: "0755"
+    force: yes
+
+- name: Ensure Zsh plugins directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/zsh/plugins"
+    state: directory
+    mode: "0755"
+
+- name: Install Zsh autosuggestions plugin
+  git:
+    repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+    dest: "{{ ansible_env.HOME }}/.config/zsh/plugins/zsh-autosuggestions"
+    clone: yes
+    update: yes
+
+- name: Install Zsh autocomplete plugin
+  git:
+    repo: "https://github.com/marlonrichert/zsh-autocomplete.git"
+    dest: "{{ ansible_env.HOME }}/.config/zsh/plugins/zsh-autocomplete"
+    clone: yes
+    update: yes
+
+- name: Symlink Zsh configuration
+  file:
+    src: "{{ ansible_env.HOME }}/.config/zsh/zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    state: link
+    force: yes
+
+- name: Change default shell to Zsh
+  command: "chsh -s /usr/bin/zsh {{ ansible_env.USER }}"

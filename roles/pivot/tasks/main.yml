@@ -1,0 +1,23 @@
+---
+# NOTE: amd64 ARCH quietly assumed
+
+- name: Copy Ligolo-ng Linux Agent
+  copy:
+    src: "ligolo-lin-agent"
+    dest: "/arsenal/pivot/ligolo-lin-agent"
+    mode: "0755"
+    force: yes
+
+- name: Copy Ligolo-ng Win Agent
+  copy:
+    src: "ligolo-win-agent.exe"
+    dest: "/arsenal/pivot/ligolo-win-agent"
+    mode: "0755"
+    force: yes
+
+- name: Copy Ligolo-ng Proxy/Server
+  copy:
+    src: "ligolo_proxy"
+    dest: "/arsenal/pivot/ligolo_proxy"
+    mode: "0755"
+    force: yes

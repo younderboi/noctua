@@ -1,0 +1,27 @@
+- name: Install hashcat + hasid
+  apt:
+    name:
+      - hashcat
+      - hashid
+    state: present
+    update_cache: yes
+
+- name: Install John the Ripper
+  git:
+    repo: "https://github.com/openwall/john.git"
+    dest: /arsenal/sources/john
+    clone: yes
+    update: yes
+    force: yes
+
+- name: Add John run directory to zsh path
+  lineinfile:
+    path: "/etc/zsh/zshenv"
+    line: "export PATH=$PATH:/arsenal/sources/john/run"
+    create: yes
+
+- name: Install thc hydra
+  apt:
+    name: hydra
+    state: present
+    update_cache: yes

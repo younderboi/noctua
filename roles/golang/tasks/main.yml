@@ -1,0 +1,25 @@
+- name: check pre-existing go install
+  command: go version
+  register: go_installed
+  changed_when: false
+  failed_when: false
+
+- name: download golang tarball
+  get_url:
+    url: "https://go.dev/dl/go{{ goversion }}.linux-amd64.tar.gz"
+    dest: "/tmp/go{{ goversion }}.linux-amd64.tar.gz"
+    mode: "0644"
+  when: go_installed.rc != 0
+
+- name: validate golang tarball hash
+  command: sha256sum /tmp/go{{ goversion }}.linux-amd64.tar.gz
+  register: go_hash
+  changed_when: false
+  when: go_installed.rc != 0
+
+- name: Fail if SHA256 mismatch
+  fail:
+    msg: "SHA256 mismatch! Sus."
+  when:
+    - go_installed.rc != 0
+    - go_hash.stdout.split()[0] != goversion_sha256

@@ -1,0 +1,50 @@
+---
+- name: Make privesc dir
+  file:
+    path: "/arsenal/privesc"
+    state: directory
+    mode: "0755"
+
+# === Windows Privesc ===
+- name: Make privesc win dir
+  file:
+    path: "/arsenal/privesc/win"
+    state: directory
+    mode: "0755"
+
+- name: Download WinPEAS
+  get_url:
+    url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx64.exe"
+    dest: "/arsenal/privesc/win/winpeas.exe"
+    mode: "0755"
+
+- name: Copy GodPotato
+  copy:
+    src: "GodPotato-NET4.exe"
+    dest: "/arsenal/privesc/win/godpotato-net4.exe"
+    mode: "0755"
+    force: no
+
+- name: Copy SweetPotato
+  copy:
+    src: "SweetPotato.exe"
+    dest: "/arsenal/privesc/win/sweetpotato64.exe"
+
+# === Linux Privesc Dir ===
+- name: Make privesc linux dir
+  file:
+    path: "/arsenal/privesc/lin"
+    state: directory
+    mode: "0755"
+
+- name: Download LinPEAS script
+  get_url:
+    url: "https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh"
+    dest: "/arsenal/privesc/lin/linpeas.sh"
+    mode: "0755"
+
+- name: Download Pspy binary
+  get_url:
+    url: "https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64"
+    dest: "/arsenal/privesc/lin/pspy"
+    mode: "0755"

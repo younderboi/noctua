@@ -1,0 +1,25 @@
+# === Install Netexec ===
+- name: Install pipx
+  apt:
+    name: pipx
+    state: present
+    update_cache: yes
+
+- name: Ensure pipx is in the user path
+  shell: pipx ensurepath
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install Netexec
+  shell: pipx install git+https://github.com/Pennyw0rth/NetExec
+  args:
+    executable: /bin/bash
+
+# TODO: depends on bloodhound for bloodhound integration
+# TODO: conf file contains credentials...
+- name: Copy nxc.conf
+  copy:
+    src: nxc.conf
+    dest: "{{ ansible_env.HOME }}/.nxc/nxc.conf"
+    mode:

@@ -1,0 +1,74 @@
+- name: ⚠️  WARN Installing Python 2.7 from Debian 11 (FrankenDebian Risk)
+  debug:
+    msg: |
+      ⚠️  You're about to install legacy Python 2.7 binaries from Debian 11 on a Debian 12 system.
+      This may create a "FrankenDebian" environment, risking system instability and security.
+      ➤ You should remove these packages before upgrading Debian in the future.
+      ➤ Don't use this in production environments. You've been warned.
+
+- name: Check if python2.7 is already installed
+  command: python2.7 --version
+  register: python_check
+  changed_when: false
+  failed_when: false
+
+- name: Set download list for required .deb packages
+  set_fact:
+    python2_debs:
+      - {
+          url: "http://ftp.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb",
+          filename: "libffi7_3.3-6_amd64.deb",
+        }
+      - {
+          url: "http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.1w-0+deb11u2_amd64.deb",
+          filename: "libssl1.1_1.1.1w-0+deb11u2_amd64.deb",
+        }
+      - {
+          url: "http://ftp.debian.org/debian/pool/main/p/python2.7/libpython2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+          filename: "libpython2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+        }
+      - {
+          url: "http://ftp.debian.org/debian/pool/main/p/python2.7/python2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+          filename: "python2.7-minimal_2.7.18-8+deb11u1_amd64.deb",
+        }
+      - {
+          url: "http://ftp.debian.org/debian/pool/main/p/python2.7/libpython2.7-stdlib_2.7.18-8+deb11u1_amd64.deb",
+          filename: "libpython2.7-stdlib_2.7.18-8+deb11u1_amd64.deb",
+        }
+      - {
+          url: "http://ftp.debian.org/debian/pool/main/p/python2.7/python2.7_2.7.18-8+deb11u1_amd64.deb",
+          filename: "python2.7_2.7.18-8+deb11u1_amd64.deb",
+        }
+
+- name: Create temp dir for .deb files
+  file:
+    path: /tmp/python2.7-debs
+    state: directory
+    mode: "0755"
+
+- name: Download .deb files if Python 2.7 not installed
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/python2.7-debs/{{ item.filename }}"
+    mode: "0644"
+  loop: "{{ python2_debs }}"
+  loop_control:
+    label: "{{ item.filename }}"
+  when: python_check.rc != 0
+
+- name: Install .deb files
+  apt:
+    deb: "/tmp/python2.7-debs/{{ item.filename }}"
+  loop: "{{ python2_debs }}"
+  loop_control:
+    label: "{{ item.filename }}"
+  when: python_check.rc != 0
+
+- name: Verify Python 2.7 installation
+  command: python2.7 --version
+  register: python_version
+  changed_when: false
+
+- name: Confirm install
+  debug:
+    msg: "✅ Python 2.7 installed: {{ python_version.stdout }}"

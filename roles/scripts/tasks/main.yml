@@ -1,0 +1,9 @@
+---
+- name: Copy all files from files/scripts to /arsenal/bin
+  copy:
+    src: "{{ item }}"
+    dest: "/arsenal/bin"
+    mode: "0755"
+    force: yes
+  with_fileglob:
+    - "files/*"

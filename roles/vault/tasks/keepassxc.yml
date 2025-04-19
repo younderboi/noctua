@@ -1,0 +1,6 @@
+---
+- name: Install KeePassXC
+  apt:
+    name: keepassxc
+    state: present
+    update_cache: yes

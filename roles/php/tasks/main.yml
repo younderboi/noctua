@@ -1,0 +1,11 @@
+---
+- name: Install PHP CLI and minimal extensions
+  apt:
+    name:
+      - php-cli
+      - php-curl
+      - php-mbstring
+      - php-xml
+      - php-zip
+    state: present
+    update_cache: true

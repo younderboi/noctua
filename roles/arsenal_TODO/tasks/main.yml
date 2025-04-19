@@ -1,0 +1,14 @@
+---
+- include_tasks: create_scaffolding.yml
+#- include_tasks: ligolo_ng.yml
+#- include_tasks: metasploit.yml
+#- include_tasks: service_enum.yml
+#- include_tasks: active_directory.yml
+#- include_tasks: cracking.yml
+#- include_tasks: searchsploit.yml
+#- include_tasks: privesc.yml
+- name: Install misc tooling
+  apt:
+    name:
+      - sshpass
+    state: present

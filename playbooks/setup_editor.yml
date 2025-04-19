@@ -1,0 +1,6 @@
+- name: setup editor
+  hosts:
+    - noctua
+    - admin
+  roles:
+    - neovim

@@ -1,0 +1,17 @@
+---
+# === Install Network Scanning & Remote Service Tools ===
+- name: Install essential network and remote service tools
+  apt:
+    name:
+      - nmap
+      - swaks # SMTP testing tool
+      - smbclient # SMB enumeration
+      - ldap-utils # LDAP search tools
+      - cadaver # WebDAV client
+      - rpcbind
+      - nfs-common
+      - ftp
+      - ffuf
+      #- enum4linux
+    state: present
+    update_cache: yes

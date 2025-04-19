@@ -1,0 +1,14 @@
+- name: Install base dev packages
+  apt:
+    name:
+      - build-essential
+      - curl
+      - git
+      - unzip
+      - jq
+      - ripgrep
+      - direnv
+      - tree
+      - fzf
+    state: present
+    update_cache: true

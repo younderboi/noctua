@@ -1,0 +1,12 @@
+- name: Install WireGuard tools
+  apt:
+    name:
+      - wireguard
+      - wireguard-tools
+    state: present
+
+- name: Install OpenVPN
+  apt:
+    name:
+      - openvpn
+    state: present

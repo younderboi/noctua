@@ -1,0 +1,26 @@
+- name: clone neovim source repository
+  git:
+    repo: "https://github.com/neovim/neovim.git"
+    dest: "/opt/neovim"
+    clone: yes
+    update: yes
+    version: v0.10.4
+    force: yes
+
+- name: build neovim from source
+  command: make cmake_build_type=release
+  args:
+    chdir: "/opt/neovim"
+
+- name: install neovim
+  command: make install
+  args:
+    chdir: "/opt/neovim"
+
+- name: verify neovim installation
+  command: nvim --version
+  register: neovim_version
+
+- name: display neovim version
+  debug:
+    msg: "{{ neovim_version.stdout }}"
