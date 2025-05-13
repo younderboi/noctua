@@ -40,7 +40,7 @@ Noctua can be deployed in an infite set of ways, but here's some examples:
     - ..
   - Heavy tooling on remote system
   
-- **Personal Fav (preferred)**  
+- **Hybrid (personal fav)**  
   - Tooling lives **locally**  
   - **Network-heavy tasks** run on a remote jumpbox  
   - Remote system acts as **opsec-forward pivot**  
@@ -81,3 +81,4 @@ Noctua can be deployed in an infite set of ways, but here's some examples:
 
 **Very much WIP.**
 If you like this, feel free to reach out.
+
