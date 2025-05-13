@@ -3,7 +3,6 @@
 eval "$(direnv hook zsh)"
 
 #=== Aliases
-alias get_tun0_ip="ip -4 addr show tun0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
 alias clip="xclip -selection clipboard"
 alias vi="nvim"
 alias c="clear"
@@ -11,11 +10,9 @@ alias ll="ls -l"
 alias la="ls -A"
 alias l="ls -CF"
 alias zsreload="source ~/.zshrc"
-alias clear-hashcat="rm ~/.local/share/hashcat/hashcat.potfile"
-alias sliver="sliver-client"
-alias john=/arsenal/sources/john/run/john
 
-# === Haxor funcitons
+# === Get IP of interface
+# TODO: move as separate script into ~/.local/bin
 get-ip() {
     if [[ -z "$1" ]]; then
         echo "Usage: get-ip <interface>"
@@ -25,7 +22,7 @@ get-ip() {
 }
 
 #=== PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=$HOME/utils:$PATH
 export PATH=/arsenal/bin:$PATH

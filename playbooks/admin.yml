@@ -1,6 +1,7 @@
 - name: Setup admin system
   hosts: admin
-  become: true
   roles:
-    - { role: i3, tags: [desktop, UX, WM, GUI] }
+    - { role: desktop, tags: [desktop, UX, WM, GUI] }
+    - { role: tmux, tags: [desktop, dev, shell] }
+    - { role: zsh, tags: [shell, dev, zsh] }
     - { role: signal, tags: [comms, GUI] }

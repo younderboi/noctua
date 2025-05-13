@@ -1,6 +1,7 @@
 # === ZSH ===
 # TODO: make the .zshrc config thingy a static file inside this repo, easier to manage
 - name: Install Zsh
+  become: true
   apt:
     name: zsh
     state: present

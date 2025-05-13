@@ -1,0 +1,6 @@
+- name: setup NFS
+  hosts:
+    - noctua
+    - admin
+  roles:
+    - NFS
